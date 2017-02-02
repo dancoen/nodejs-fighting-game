@@ -34,7 +34,7 @@ eventEmitter.removeListener('connection',listener);
 eventEmitter.emit('connection');
 console.log("Program ended");
 
-/*http.createServer(function(request, response){
+http.createServer(function(request, response){
 	//send http header
 	//status 200 : OK
 	//content type: text/plain
@@ -45,4 +45,4 @@ console.log("Program ended");
 }).listen(8081);
 
 console.log('server running at http://127.0.0.1:8081/');
-*/
+
