@@ -18,12 +18,14 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 
 function preload() {
 	game.load.image('ground','assets/stage/ground.png');
-	game.load.spritesheet('face_idle','assets/face_idle/face_idle.png');
+	game.load.image('background','assets/stage/background.png');
+	game.load.spritesheet('face_idle','assets/face_idle/face_idle.png', 32,32);	//piskel default is 32 x 32
 
 }
 
 function create() {
 		game.physics.startSystem(Phaser.Physics.ARCADE);
+		game.add.sprite(0,0,'background');
 		platforms = game.add.group();
 		platforms.enableBody = true;
 		var ground = platforms.create(0, game.world.height - 64, 'ground');
