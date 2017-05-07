@@ -40,6 +40,17 @@ function create() {
 	player1.body.gravity.y = 800;
 	player1.body.collideWorldBounds = true;
 	player1.animations.add('idle',null,24,true,true);
+
+	//player2
+	player2 = game.add.sprite(512,game.world.height - 300,'face_idle');
+	player2.scale.setTo(2,2);
+	game.physics.arcade.enable(player2);
+	player2.body.gravity.y = 800;
+	player2.body.collideWorldBounds = true;
+	player2.animations.add('idle',null,24,true,true);
+
+
+	
 	
 	//fireballs
 	fireballs = game.add.group();
@@ -49,6 +60,7 @@ function create() {
 	cursors = game.input.keyboard.createCursorKeys();	
 }
 var p1timer = 0;
+var p2timer = 0;
 function update() {
 	var player1grounded = game.physics.arcade.collide(player1, platforms);
 	if(player1grounded){
@@ -93,6 +105,50 @@ function update() {
 	//create stage boundary and it add to platforms? maybe collision check fireballs in future(side screen stop)
 	
 	p1timer--;
+
+	var player2grounded = game.physics.arcade.collide(player2, platforms);
+		if(player2grounded){
+			player2.animations.play('idle');
+			player2.body.velocity.x = 0;
+			if(cursors.left.isDown){
+				player2.body.velocity.x = -200;
+			}
+			if(cursors.right.isDown){
+				player2.body.velocity.x = 350;
+			}
+			if(cursors.up.isDown){
+				player2.body.velocity.y = -500;
+			}
+			if(cursors.down.isDown){	
+				if(p2timer <= 0){
+					//play char fire animation
+					fireball = fireballs.create(player2.position.x+40, player2.position.y +30, 'fireball');
+					fireball.body.velocity.x = 450;
+					p2timer = 45;
+				}
+			}
+		}
+		else{
+			player2.animations.stop();
+			if(cursors.left.isDown){
+				player2.body.velocity.x = -200;
+			}
+			if(cursors.right.isDown){
+				player2.body.velocity.x = 200;
+			}
+			if(cursors.down.isDown){
+				if(p2timer <= 0){
+					//play char fire animation
+					fireball = fireballs.create(player2.position.x+40, player2.position.y +30, 'fireball');
+					fireball.body.velocity.x = 170;
+					fireball.body.velocity.y = 100;
+					p2timer = 45;
+				}
+			}
+		}
+		//create stage boundary and it add to platforms? maybe collision check fireballs in future(side screen stop)
+		
+		p2timer--;
 }
 
 </script>
